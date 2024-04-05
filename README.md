@@ -1,0 +1,1 @@
+This application aims to scrap the odds of the upcoming games of the Premier League and store the results in a database
