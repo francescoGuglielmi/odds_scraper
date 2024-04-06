@@ -3,8 +3,9 @@
  * @returns { Promise<void> }
  */
 export async function up(knex) {
-  return knex.schema.createTable('match', table => {
+  return knex.schema.createTable('matches', table => {
     table.increments('id');
+    table.string('date').notNullable();
     table.string('team_home').notNullable();
     table.string('team_away').notNullable();
     table.string('odds_team_home').notNullable();
@@ -19,5 +20,5 @@ export async function up(knex) {
  * @returns { Promise<void> }
  */
 export async function down(knex) {
-  return knex.schema.dropTable('match');
+  return knex.schema.dropTable('matches');
 };

@@ -1,18 +1,29 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { executablePath } from "puppeteer";
+import storeFootballData from "./storeFootballData.js";
+import retrieveStoredData from "./retrieveStoredData.js";
+import db from "./db.js";
 
 puppeteer.use(StealthPlugin());
 
 async function main() {
-  const browser = await puppeteer.launch({ executablePath: executablePath() });
-  const page = await browser.newPage();
-
-  await setUpPageToScrap(page);
-  const scrapedData = await scrapFootballData(page);
-  console.log(scrapedData);
-
-  await browser.close();
+  try {
+    const browser = await puppeteer.launch({ executablePath: executablePath() });
+    const page = await browser.newPage();
+  
+    await setUpPageToScrap(page);
+    const scrapedData = await scrapFootballData(page);
+    await browser.close();
+    
+    await storeFootballData(scrapedData);
+    const retrievedData = await retrieveStoredData();
+    console.log(retrievedData);
+  
+    await db.destroy();
+  } catch(error) {
+    console.log(error)
+  }
 }
 
 async function setUpPageToScrap(page) {
