@@ -9,11 +9,10 @@ This application aims to scrap the odds of the upcoming games of the Premier Lea
 ## Setup
 1. Make sure you have nvm and node installed, ideally the LTS version. Run this command to verify the installation.
 
-2. You need to create a Postgres database for this project to work. Make sure you get the connect string or the relevant auth detail.  
-
 ```
 node -v 
 ```
+2. You need to create a Postgres database for this project to work. Make sure you get the connect string or the relevant auth detail.  
 
 3. Clone the project
 
