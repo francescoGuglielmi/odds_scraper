@@ -12,7 +12,7 @@ async function isMatchDataRedundant(newMatch) {
     odds_draw: newMatch.oddsDraw,
     odds_team_away: newMatch.oddsTeamAway,
   });
-  return !!storedData;
+  return !!storedData[0];
 }
 
 export default isMatchDataRedundant;

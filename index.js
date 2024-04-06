@@ -14,12 +14,12 @@ async function main() {
   
     await setUpPageToScrap(page);
     const scrapedData = await scrapFootballData(page);
-    await browser.close();
     
     await storeFootballData(scrapedData);
     const retrievedData = await retrieveStoredData();
-    console.log(retrievedData);
-  
+    console.log("\nThe current data is: ", retrievedData);
+    
+    await browser.close();
     await db.destroy();
   } catch(error) {
     console.log(error)
@@ -34,7 +34,7 @@ async function setUpPageToScrap(page) {
 
 async function scrapFootballData(page) {
   return await page.evaluate(() => {
-    const matches = document.body.querySelectorAll(".sportsbook-inline-outright");
+    const matches = document.body.querySelectorAll('[data-id="sportsbook_market-group_simple-coupon_inline-outright"]');
     return Array.from(matches, (e) => ({
       date: e.querySelector(".sportsbook-inline-outright__header-bar-time").textContent,
       teamHome: e.querySelector(".sportsbook-inline-outright__teams-home").textContent,
