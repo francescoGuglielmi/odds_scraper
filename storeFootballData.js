@@ -1,7 +1,10 @@
 import db from "./db.js";
+import isMatchDataRedundant from "./isMatchDataRedundant.js";
 
 async function storeFootballData(scrapedData) {
   for (let i = 0; i < scrapedData.length; i++) {
+    if (isMatchDataRedundant(scrapedData[i])) continue;
+    
     await db('matches').insert({
       date: scrapedData[i].date,
       team_home: scrapedData[i].teamHome,
