@@ -16,13 +16,15 @@ async function main() {
     const scrapedData = await scrapFootballData(page);
     
     await storeFootballData(scrapedData);
+    // The next two lines aim to verify that the data was actually stored successfully in the database and is able
+    // to be retrieved. If the process worked, you will see the stored data in the console. 
     const retrievedData = await retrieveStoredData();
     console.log("\nThe current data is: ", retrievedData);
     
     await browser.close();
     await db.destroy();
   } catch(error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
