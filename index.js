@@ -4,34 +4,45 @@ import { executablePath } from "puppeteer";
 import storeFootballData from "./utils/storeFootballData.js";
 import retrieveStoredData from "./utils/retrieveStoredData.js";
 import db from "./db.js";
+import clearOldDatabaseEntries from "./utils/clearOldDatabaseEntries.js";
 
-puppeteer.use(StealthPlugin());
+puppeteer.use(StealthPlugin()); // This plugin helps for this script not to be recognised as a bot when scraping
 
 async function main() {
   try {
+    // 1. Launch browser and navigate to the page to be scrapped
     const browser = await puppeteer.launch({ executablePath: executablePath() });
     const page = await browser.newPage();
-  
     await setUpPageToScrap(page);
+
+    // 2. Scrap the data out of the page
     const scrapedData = await scrapFootballData(page);
+
+    // 3. Store it in the database and clear older than 1 week rows
     await storeFootballData(scrapedData);
-    
-    // The next two lines aim to verify that the data was actually stored successfully in the database and is able
-    // to be retrieved. If the process worked, you will see the stored data printed in the console. 
+    await clearOldDatabaseEntries();
+
+    // 4. Verify the process was successful and log the database data to the console
     const retrievedData = await retrieveStoredData();
     console.log("\nThe current data is: ", retrievedData);
 
+    // 5. Close the browser
     await browser.close();
     await db.destroy();
   } catch(error) {
-    console.error(error)
+    console.error('\x1b[31m', error);
   }
 }
 
 async function setUpPageToScrap(page) {
+  // Navigate
   await page.goto("https://www.betfred.com/sports/market-group/22234017.2");
+
+  // Accept cookies
   await page.click('a.wscrOk');
-  await page.waitForSelector('.sportsbook-simple-coupon');
+
+  // We want to wait until the relevant page is fully loaded before scraping
+  await page.waitForSelector('.sportsbook-simple-coupon'); 
 }
 
 async function scrapFootballData(page) {

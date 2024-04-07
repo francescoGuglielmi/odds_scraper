@@ -1,3 +1,6 @@
+// We want to make sure that if a match is already stored in the database we are not going to
+// add the same entry twice. I feel this enables more control than using the 'unique' keyword in the schema creation.
+
 import db from "../db.js";
 
 async function isMatchDataRedundant(newMatch) {

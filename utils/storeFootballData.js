@@ -1,3 +1,5 @@
+// This function stores the scraped data into the database you are connected to.
+
 import db from "../db.js";
 import isMatchDataRedundant from "./isMatchDataRedundant.js";
 import dateFormatter from "./dateFormatter.js";
