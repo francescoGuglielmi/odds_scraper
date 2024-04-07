@@ -27,6 +27,8 @@ node -v
 
 5. Create a .env file. You will need this to set up your CONNECTION_STRING variable to connect to the database.
 
+6. Set up database connection:
+
 The database is set up using directly the connection string rather than the single params. After your db creation, copy your connection string to the environment variable in your .env file.
 Make sure that you click on the "eye" in picture before you copy so that the secret password is part of the string, else you won't be able to connect.
 
@@ -38,19 +40,25 @@ If you don't have an explicit connection string you can make one in the format:
 postgres://username:password@host:port/database
 ```
 
-## Migrations
+7. In the root of the project run:
 
-I made two scripts to run migration up:
 ```
 npm run migrate
 ```
 
-and migration down:
+## Migrations
+
+I created two scripts to run migrations. They allow to prepare (or reset) the database table.
+
+up  ➡️ (CREATE TABLE macthes):
+```
+npm run migrate
+```
+
+down ➡️ (DROP TABLE matches):
 ```
 npm run rollback
 ```
-
-I suggest to run the first one before running the start command so to prepare the table in your db to receive data.
 
 ## Start
 

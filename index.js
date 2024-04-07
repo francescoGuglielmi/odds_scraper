@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { executablePath } from "puppeteer";
-import storeFootballData from "./storeFootballData.js";
-import retrieveStoredData from "./retrieveStoredData.js";
+import storeFootballData from "./utils/storeFootballData.js";
+import retrieveStoredData from "./utils/retrieveStoredData.js";
 import db from "./db.js";
 
 puppeteer.use(StealthPlugin());
@@ -14,13 +14,13 @@ async function main() {
   
     await setUpPageToScrap(page);
     const scrapedData = await scrapFootballData(page);
-    
     await storeFootballData(scrapedData);
+    
     // The next two lines aim to verify that the data was actually stored successfully in the database and is able
-    // to be retrieved. If the process worked, you will see the stored data in the console. 
+    // to be retrieved. If the process worked, you will see the stored data printed in the console. 
     const retrievedData = await retrieveStoredData();
     console.log("\nThe current data is: ", retrievedData);
-    
+
     await browser.close();
     await db.destroy();
   } catch(error) {

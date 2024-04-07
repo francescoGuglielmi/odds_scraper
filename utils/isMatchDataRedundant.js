@@ -1,4 +1,4 @@
-import db from "./db.js";
+import db from "../db.js";
 
 async function isMatchDataRedundant(newMatch) {
   const storedData = await db
