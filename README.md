@@ -86,6 +86,12 @@ Once downloaded make sure you add it to PATH.
 echo 'export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"' >> ~/.zshrc
 ```
 
+Start postgres in the background:
+
+```
+brew services start postgresql
+```
+
 Now it's time to open the REPL that comes out of the box with PostgreSQL. Run:
 
 ```
