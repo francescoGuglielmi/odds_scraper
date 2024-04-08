@@ -1,9 +1,7 @@
 // This function clears the football events that have created more than 1 week ago.
 // Since Betfred only displays one week at the time, any older match is not relevant anymore.
 
-import db from "../db.js";
-
-async function clearOldDatabaseEntries() {
+async function clearOldDatabaseEntries(db) {
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 

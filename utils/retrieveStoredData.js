@@ -1,10 +1,7 @@
 // Get all the database rows from the table "matches"
 
-import db from "../db.js";
-
-async function retrieveStoredData() {
-  const savedMatches = await db.select().from("matches");
-  return savedMatches;
+async function retrieveStoredData(db) {
+  return await db.select().from("matches");
 }
 
 export default retrieveStoredData;

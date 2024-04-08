@@ -68,3 +68,48 @@ npm run start
 
 As part of the output you will also see a log in the console of all the db entries retrieved and whether a new entry will not be added to the database (usually because that entry already exists there). This is to verify that the process was successful.
 
+## Test environment setup
+
+<img width="1200" src="https://github.com/francescoGuglielmi/odds_scraper/blob/main/images/test_results.png"> <br/>
+
+In order to run the test suite, you need to have PostgreSQL installed on your local machine. If you have Homebrew you can do so by running:
+
+```
+brew install postgresql@15
+```
+
+otherwise check the instructions on the official website [here](https://www.postgresql.org/download/).
+
+Once downloaded make sure you add it to PATH.
+
+```
+echo 'export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"' >> ~/.zshrc
+```
+
+Now it's time to open the REPL that comes out of the box with PostgreSQL. Run:
+
+```
+psql -h 127.0.0.1
+```
+
+The name you see there is your username and you can set a password by running:
+
+```
+\password
+```
+
+You will need them in a moment.
+
+Then create the test database by running this command in the REPL:
+
+```sql
+CREATE DATABASE "odds_scraper_test_db";
+```
+
+Brilliant! You have the database. Now to connect to the database add to your .env file the POSTGRES_USERNAME and POSTGRES_PASSWORD.
+
+### Run the tests
+
+```
+npm run test
+```

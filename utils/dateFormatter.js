@@ -12,10 +12,10 @@ function dateFormatter(scrapedDate) {
   } else return scrapedDate;
 }
 
-function getOrdinalIndicator(dayOfTheMonth) {
-  if(dayOfTheMonth.split("")[1] === 1) return "st";
-  if(dayOfTheMonth.split("")[1] === 2) return "nd";
-  if(dayOfTheMonth.split("")[1] === 3) return "rd";
+export function getOrdinalIndicator(dayOfTheMonth) {
+  if(dayOfTheMonth.split("")[1] === "1" && dayOfTheMonth !== "11") return "st";
+  if(dayOfTheMonth.split("")[1] === "2") return "nd";
+  if(dayOfTheMonth.split("")[1] === "3") return "rd";
   return "th";
 }
 

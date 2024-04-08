@@ -19,11 +19,11 @@ async function main() {
     const scrapedData = await scrapFootballData(page);
 
     // 3. Store it in the database and clear older than 1 week rows
-    await storeFootballData(scrapedData);
-    await clearOldDatabaseEntries();
+    await storeFootballData(scrapedData, db);
+    await clearOldDatabaseEntries(db);
 
     // 4. Verify the process was successful and log the database data to the console
-    const retrievedData = await retrieveStoredData();
+    const retrievedData = await retrieveStoredData(db);
     console.log("\nThe current data is: ", retrievedData);
 
     // 5. Close the browser

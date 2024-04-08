@@ -1,12 +1,11 @@
 // This function stores the scraped data into the database you are connected to.
 
-import db from "../db.js";
 import isMatchDataRedundant from "./isMatchDataRedundant.js";
 import dateFormatter from "./dateFormatter.js";
 
-async function storeFootballData(scrapedData) {
+async function storeFootballData(scrapedData, db) {
   for (let i = 0; i < scrapedData.length; i++) {
-    if (await isMatchDataRedundant(scrapedData[i])) {
+    if (await isMatchDataRedundant(scrapedData[i], db)) {
       console.warn('\x1b[33m%s\x1b[0m', "This entry is redundant, therefore it won't be added");
       continue;
     }
